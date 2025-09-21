@@ -1,35 +1,39 @@
-import 'package:basic_app/core/localization/app_localizations.dart'
-    show AppLocalizations;
-import 'package:flutter/cupertino.dart';
+import 'package:basic_app/core/di/injector.dart';
+import 'package:basic_app/core/localization/app_localizations.dart';
+import 'package:basic_app/features/items/presentation/state/items_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:basic_app/core/di/injector.dart';
-import 'package:basic_app/features/items/presentation/state/items_provider.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => getIt<ItemsProvider>()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
+      title: 'Mi App',
+      localizationsDelegates: [
         AppLocalizations.delegate,
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-        DefaultCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('es', ''),
-        Locale('en', ''), 
-      ],
-      locale: const Locale('es', ''),
-      title: 'Basic App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const HomePage(),
+      supportedLocales: [Locale('en'), Locale('es')],
+      home: HomePage(),
     );
   }
 }
@@ -39,11 +43,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
-
     return Scaffold(
-      appBar: AppBar(title: Text(t.translate('app_title'))),
-      body: Center(child: Text(t.translate('home_title'))),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context).translate('app_title')),
+      ),
+      body: Center(
+        child: Text(AppLocalizations.of(context).translate('home_title')),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {}),
     );
   }
 }
