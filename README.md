@@ -3,6 +3,7 @@
 La aplicación es una pantalla principal con un listado de tarjetas que muestran información, una pantalla de detalles que muestra más información sobre un elemento seleccionado y una pantalla de formulario para agregar nuevos elementos al listado.
 
 La aplicación incluye:
+
 - Una pantalla principal con un listado de elementos en tarjetas.
 - Una pantalla de detalles con información ampliada de un elemento seleccionado.
 - Una pantalla de formulario para agregar nuevos elementos al listado.
@@ -27,6 +28,9 @@ Cada *feature* se organiza de forma modular dentro de `lib/features/`.
 
 ```bash
 lib/
+├─ routes/
+│   ├─ app_router.dart          # Aquí configuras GoRouter
+│   
 ├─ core/                        # Recursos compartidos entre features
 │  ├─ error/                    # Manejo de errores y excepciones
 │  ├─ usecases/                 # Base abstracta para casos de uso
@@ -41,6 +45,8 @@ lib/
 │     │  │     └─ item_local_datasource.dart   # Fuente de datos local
 │     │  ├─ models/
 │     │  │  └─ item_model.dart
+│     │  ├─ mapper/
+│     │  │  └─ item_model_mapper.dart 
 │     │  └─ repositories/
 │     │     └─ item_repository_impl.dart
 │     │
@@ -87,22 +93,26 @@ En el archivo `pubspec.yaml` encontrarás dependencias típicas de este tipo de 
 ## Ejecución del proyecto
 
 ### 1. Clonar el repositorio
+
 ```bash
 git clone https://github.com/RutaPragma/basic_app.git
 cd basic_app
 ```
 
 ### 2. Instalar dependencias
+
 ```bash
 flutter pub get
 ```
 
 ### 3. Generar código de Drift (si usas Drift para persistencia)
+
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
 ### 4. Ejecutar la aplicación
+
 ```bash
 flutter run
 ```
@@ -112,16 +122,19 @@ flutter run
 ## Flujo de la aplicación
 
 1. **Pantalla Principal**
-  - Lista todos los elementos guardados en la base de datos local.
-  - Cada elemento se muestra en una **tarjeta** (`ItemCard`).
+
+- Lista todos los elementos guardados en la base de datos local.
+- Cada elemento se muestra en una **tarjeta** (`ItemCard`).
 
 2. **Pantalla de Detalle**
-  - Se accede al pulsar un elemento.
-  - Muestra información detallada del item seleccionado.
+
+- Se accede al pulsar un elemento.
+- Muestra información detallada del item seleccionado.
 
 3. **Pantalla de Formulario**
-  - Permite agregar un nuevo elemento al listado.
-  - Al guardar, la información se persiste en la base de datos local `sqlite`).
+
+- Permite agregar un nuevo elemento al listado.
+- Al guardar, la información se persiste en la base de datos local `sqlite`.
 
 ---
 
@@ -143,5 +156,6 @@ flutter test
 ---
 
 ## Autor
+
 - Jhony Renteria Rodriguez
-- jhonyrenteria@gmail.com
+- <jhonyrenteria@gmail.com>
