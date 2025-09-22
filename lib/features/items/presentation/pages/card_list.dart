@@ -25,7 +25,7 @@ class _CardListState extends State<CardList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          language.translate('app_title'),
+          language.translate('card_list_page.title'),
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -87,7 +87,30 @@ class _CardListState extends State<CardList> {
                 borderRadius: BorderRadius.circular(20.0),
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
               ),
-              child: Text(itemModel.title),
+              child: Hero(
+                tag:
+                    '${language.translate('card_list_page.tag_card_list')}$index',
+                flightShuttleBuilder:
+                    (
+                      flightContext,
+                      animation,
+                      direction,
+                      fromContext,
+                      toContext,
+                    ) {
+                      return DefaultTextStyle(
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                        child: (direction == HeroFlightDirection.push)
+                            ? toContext.widget
+                            : fromContext.widget,
+                      );
+                    },
+                child: Text(itemModel.title),
+              ),
             ),
           );
         },

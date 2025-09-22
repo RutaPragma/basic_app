@@ -1,4 +1,11 @@
 {
-  "app_title": "Gestor de Items",
-  "home_title": "Mundo"
+  "app_title": "Aplicación Básica",
+  "card_list_page": {
+    "title": "Listado de tarjetas",
+    "tag:": "tag_card_list"
+  },
+  "item_detail_page": {
+    "title": "Detalle de items",
+    "tag:": "tag_card_list"
+  }
 }

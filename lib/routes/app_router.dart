@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:basic_app/features/items/data/mapper/item_model_mapper.dart';
 import 'package:basic_app/features/items/data/models/item_model.dart';
 import 'package:basic_app/features/items/presentation/pages/pages.dart';
 import 'package:basic_app/routes/routes.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -17,17 +19,54 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: Routes.itemDetail,
       name: 'item_detail',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final item = state.extra is ItemModel
             ? state.extra as ItemModel
             : ItemModelMapper().fromMap(json.decode(state.extra.toString()));
-        return ItemDetail(item: item);
+
+        return CustomTransitionPage(
+          key: state.pageKey,
+          transitionDuration: const Duration(milliseconds: 600),
+          child: ItemDetail(item: item),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0);
+            const end = Offset.zero;
+            final tween = Tween(
+              begin: begin,
+              end: end,
+            ).chain(CurveTween(curve: Curves.easeInOut));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
       },
     ),
     GoRoute(
       path: Routes.itemForm,
       name: 'Form',
-      builder: (context, state) => const ItemForm(),
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const ItemForm(),
+          transitionDuration: const Duration(milliseconds: 600),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            final tween = Tween(
+              begin: begin,
+              end: end,
+            ).chain(CurveTween(curve: Curves.easeOutCubic));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        );
+      },
     ),
   ],
 );

@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class AppLocalizations {
   final Locale locale;
-  late Map<String, String> _localizedStrings;
+  late Map<String, dynamic> _localizedStrings;
 
   AppLocalizations(this.locale);
 
@@ -22,14 +22,22 @@ class AppLocalizations {
     );
     final Map<String, dynamic> jsonMap = json.decode(jsonString);
 
-    _localizedStrings = jsonMap.map(
-      (key, value) => MapEntry(key, value.toString()),
-    );
+    _localizedStrings = jsonMap;
 
     return true;
   }
 
   String translate(String key) {
-    return _localizedStrings[key] ?? '** $key not found';
+    final keys = key.split('.');
+    dynamic value = _localizedStrings;
+
+    for (final part in keys) {
+      if (value is Map<String, dynamic> && value.containsKey(part)) {
+        value = value[part];
+      } else {
+        return '** $part not found **';
+      }
+    }
+    return value.toString();
   }
 }

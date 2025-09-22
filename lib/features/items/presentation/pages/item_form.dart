@@ -15,7 +15,7 @@ class ItemForm extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: () {
-            context.pop(); // o context.pop() si usas GoRouter
+            context.pop();
           },
         ),
       ),
