@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData get lightTheme {
     const primaryColor = Color(0xFF7E2A6C);
-    const backgroundColor = Color(0xFFF5EAEE);
+    const backgroundColor1 = Color(0xFFF5EAEE);
+    const backgroundColor2 = Color(0xFFC86B98);
 
     return ThemeData(
       useMaterial3: true,
@@ -11,17 +12,19 @@ class AppTheme {
         brightness: Brightness.light,
         primary: primaryColor,
         onPrimary: Colors.white,
-        secondary: Color(0xFFC86B98),
+        secondary: Color(0xFFF5EAEE),
         onSecondary: Colors.white,
         surface: Colors.white,
         onSurface: Color(0xFF1E1E1E),
         error: Color(0xFFD32F2F),
         onError: Colors.white,
       ),
-      scaffoldBackgroundColor: backgroundColor,
+      scaffoldBackgroundColor: backgroundColor1,
       appBarTheme: const AppBarTheme(
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
+        backgroundColor: backgroundColor2,
+        foregroundColor: Colors.black,
+        surfaceTintColor: backgroundColor1,
+        scrolledUnderElevation: 4,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: TextStyle(
@@ -66,7 +69,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 4,
         color: Colors.white,
-        shadowColor: primaryColor.withOpacity(0.2),
+        shadowColor: primaryColor.withValues(alpha: 0.2),
       ),
     );
   }
