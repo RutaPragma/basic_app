@@ -1,20 +1,13 @@
 import 'package:basic_app/features/items/domain/entities/item.dart';
 
-class ItemModel {
-  final int? id;
-  final String title;
-  final double price;
-  final String description;
-  final String category;
-  final DateTime createdAt;
-
+class ItemModel extends Item {
   ItemModel({
-    this.id,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.category,
-    required this.createdAt,
+    required super.title,
+    required super.price,
+    required super.description,
+    required super.category,
+    required super.createdAt,
+    super.id,
   });
 
   Item toEntity() {
@@ -28,17 +21,14 @@ class ItemModel {
     );
   }
 
-  factory ItemModel.fromEntity(Item e) {
+  factory ItemModel.fromEntity(Item item) {
     return ItemModel(
-      id: e.id == 0 ? null : e.id,
-      title: e.title,
-      price: e.price,
-      description: e.description,
-      category: e.category,
-      createdAt: e.createdAt,
+      id: item.id == 0 ? null : item.id,
+      title: item.title,
+      price: item.price,
+      description: item.description,
+      category: item.category,
+      createdAt: item.createdAt,
     );
   }
-
-
-
 }

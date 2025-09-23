@@ -1,19 +1,19 @@
 class Item {
-  final int id;
-  final String title;
-  final double price;
-  final String description;
-  final String category;
-  final DateTime createdAt;
-
   const Item({
-    required this.id,
     required this.title,
     required this.price,
     required this.description,
     required this.category,
     required this.createdAt,
+    this.id,
   });
+
+  final int? id;
+  final String title;
+  final double price;
+  final String description;
+  final String category;
+  final DateTime createdAt;
 
   Item copyWith({
     int? id,

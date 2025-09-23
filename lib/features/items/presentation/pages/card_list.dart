@@ -1,5 +1,5 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
-import 'package:basic_app/features/items/data/models/item_model.dart';
+import 'package:basic_app/features/items/data/datasources/local/local.dart';
 import 'package:basic_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,9 +15,9 @@ class _CardListState extends State<CardList> {
   bool shadowColor = false;
   double? scrolledUnderElevation;
 
-  final List<int> _items = List<int>.generate(300, (int index) => index);
+  final List<int> _items = List<int>.generate(2, (int index) => index);
 
-  final List<ItemModel> itemsModelList = [];
+  final List<Item> itemsList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +65,8 @@ class _CardListState extends State<CardList> {
           crossAxisSpacing: 10.0,
         ),
         itemBuilder: (BuildContext context, int index) {
-          itemsModelList.add(
-            ItemModel(
+          itemsList.add(
+            Item(
               id: index,
               title: 'Mi elemento $index',
               price: double.parse(index.toString()),
@@ -77,10 +77,10 @@ class _CardListState extends State<CardList> {
             ),
           );
 
-          final ItemModel itemModel = itemsModelList.elementAt(index);
+          final Item item = itemsList.elementAt(index);
 
           return GestureDetector(
-            onTap: () => context.push(Routes.itemDetail, extra: itemModel),
+            onTap: () => context.push(Routes.itemDetail, extra: item),
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -109,7 +109,7 @@ class _CardListState extends State<CardList> {
                             : fromContext.widget,
                       );
                     },
-                child: Text(itemModel.title),
+                child: Text(item.title),
               ),
             ),
           );
