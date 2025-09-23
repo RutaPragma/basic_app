@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'dart:ui';
 
-import 'package:basic_app/features/items/data/models/item_model.dart';
+import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:basic_app/features/items/domain/mapper/item_mapper.dart';
 import 'package:basic_app/features/items/presentation/pages/pages.dart';
 import 'package:basic_app/routes/routes.dart';
@@ -20,8 +19,8 @@ final GoRouter appRouter = GoRouter(
       path: Routes.itemDetail,
       name: 'item_detail',
       pageBuilder: (context, state) {
-        final item = state.extra is ItemModel
-            ? state.extra as ItemModel
+        final item = state.extra is Item
+            ? state.extra as Item
             : ItemMapper().fromMap(json.decode(state.extra.toString()));
 
         return CustomTransitionPage(

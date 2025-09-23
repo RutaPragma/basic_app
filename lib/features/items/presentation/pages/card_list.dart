@@ -1,5 +1,6 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
-import 'package:basic_app/features/items/data/datasources/local/local.dart';
+import 'package:basic_app/features/items/domain/entities/item.dart';
+import 'package:basic_app/features/items/presentation/widgets/item_card.dart';
 import 'package:basic_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -79,39 +80,9 @@ class _CardListState extends State<CardList> {
 
           final Item item = itemsList.elementAt(index);
 
-          return GestureDetector(
+          return ItemCard(
+            item: item,
             onTap: () => context.push(Routes.itemDetail, extra: item),
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-              child: Hero(
-                tag:
-                    '${language.translate('card_list_page.tag_card_list')}$index',
-                flightShuttleBuilder:
-                    (
-                      flightContext,
-                      animation,
-                      direction,
-                      fromContext,
-                      toContext,
-                    ) {
-                      return DefaultTextStyle(
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                        child: (direction == HeroFlightDirection.push)
-                            ? toContext.widget
-                            : fromContext.widget,
-                      );
-                    },
-                child: Text(item.title),
-              ),
-            ),
           );
         },
       ),

@@ -29,6 +29,7 @@ class AppDatabase extends _$AppDatabase {
 
   Future<int> insertItem(ItemsCompanion companion) =>
       into(items).insert(companion);
+
   Future<Item?> getItemById(int id) async {
     final row = await (select(
       items,

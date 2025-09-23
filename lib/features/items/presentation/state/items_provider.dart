@@ -15,10 +15,12 @@ class ItemsProvider extends ChangeNotifier {
   });
 
   List<Item> _items = [];
+  late Item _item;
   bool _loading = false;
   String? _error;
 
   List<Item> get items => _items;
+  Item get item => _item;
   bool get loading => _loading;
   String? get error => _error;
 

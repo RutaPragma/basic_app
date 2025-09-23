@@ -1,7 +1,7 @@
-
+import 'package:basic_app/features/items/data/datasources/local/app_database.dart';
+import 'package:basic_app/features/items/data/datasources/local/item_local_datasource.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:basic_app/features/items/data/datasources/local/local.dart';
 import 'package:basic_app/features/items/data/repositories/item_repository_impl.dart';
 import 'package:basic_app/features/items/domain/repositories/item_repository.dart';
 
@@ -15,10 +15,14 @@ Future<void> init() async {
   getIt.registerLazySingleton<AppDatabase>(() => AppDatabase());
 
   // Data sources
-  getIt.registerLazySingleton<ItemLocalDatasource>(() => ItemLocalDatasourceImpl(getIt()));
+  getIt.registerLazySingleton<ItemLocalDatasource>(
+    () => ItemLocalDatasourceImpl(getIt()),
+  );
 
   // Repositories
-  getIt.registerLazySingleton<ItemRepository>(() => ItemRepositoryImpl(local: getIt()));
+  getIt.registerLazySingleton<ItemRepository>(
+    () => ItemRepositoryImpl(local: getIt()),
+  );
 
   // UseCases
   getIt.registerFactory(() => GetItems(getIt()));
@@ -26,5 +30,11 @@ Future<void> init() async {
   getIt.registerFactory(() => GetItemById(getIt()));
 
   // Providers (state)
-  getIt.registerFactory(() => ItemsProvider(getItems: getIt(), addItem: getIt(), getItemById: getIt()));
+  getIt.registerFactory(
+    () => ItemsProvider(
+      getItems: getIt(),
+      addItem: getIt(),
+      getItemById: getIt(),
+    ),
+  );
 }
