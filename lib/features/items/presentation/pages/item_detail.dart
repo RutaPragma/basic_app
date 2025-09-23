@@ -22,7 +22,7 @@ class ItemDetail extends StatelessWidget {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
           onPressed: () {
             context.pop(); // o context.pop() si usas GoRouter

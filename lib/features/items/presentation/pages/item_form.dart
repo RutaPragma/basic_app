@@ -1,9 +1,12 @@
+import 'package:basic_app/features/items/data/datasources/local/app_database.dart';
+import 'package:basic_app/features/items/presentation/widgets/item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ItemForm extends StatelessWidget {
-  const ItemForm({super.key});
+  const ItemForm({super.key, this.item});
 
+  final Item? item;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,14 +15,19 @@ class ItemForm extends StatelessWidget {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
           onPressed: () {
             context.pop();
           },
         ),
       ),
-      body: const Center(child: Text('Formulario add Items')),
+      body: Column(
+        children: [
+          ItemCard(onTap: () {}, onEdit: () {}, item: null,),
+          const Center(child: Text('Formulario add Items')),
+        ],
+      ),
     );
   }
 }

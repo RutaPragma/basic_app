@@ -16,7 +16,7 @@ class _CardListState extends State<CardList> {
   bool shadowColor = false;
   double? scrolledUnderElevation;
 
-  final List<int> _items = List<int>.generate(2, (int index) => index);
+  final List<int> _items = List<int>.generate(50, (int index) => index);
 
   final List<Item> itemsList = [];
 
@@ -56,15 +56,9 @@ class _CardListState extends State<CardList> {
         ],
       ),
 
-      body: GridView.builder(
+      body: ListView.builder(
         itemCount: _items.length,
-        padding: const EdgeInsets.all(20.0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          childAspectRatio: 2.0,
-          mainAxisSpacing: 20.0,
-          crossAxisSpacing: 10.0,
-        ),
+        padding: const EdgeInsets.only(top: 20),
         itemBuilder: (BuildContext context, int index) {
           itemsList.add(
             Item(
@@ -77,15 +71,45 @@ class _CardListState extends State<CardList> {
               createdAt: DateTime.now(),
             ),
           );
-
           final Item item = itemsList.elementAt(index);
-
           return ItemCard(
             item: item,
             onTap: () => context.push(Routes.itemDetail, extra: item),
+            onEdit: () => context.push(Routes.itemForm, extra: item),
           );
         },
       ),
+
+      // body: GridView.builder(
+      //   itemCount: _items.length,
+      //   padding: const EdgeInsets.all(5.0),
+      //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 1,
+      //     childAspectRatio: 2.0,
+      //     mainAxisSpacing: 20.0,
+      //     crossAxisSpacing: 10.0,
+      //   ),
+      //   itemBuilder: (BuildContext context, int index) {
+      //     itemsList.add(
+      //       Item(
+      //         id: index,
+      //         title: 'Mi elemento $index',
+      //         price: double.parse(index.toString()),
+      //         description:
+      //             'Ipsum sed quia minus dolores ut dignissimos. Nihil laboriosam debitis. Ut explicabo dicta consequatur minus quae. Quibusdam voluptates illum deserunt earum odit expedita ipsum id.',
+      //         category: 'Emmerich, Mills and Hand',
+      //         createdAt: DateTime.now(),
+      //       ),
+      //     );
+
+      //     final Item item = itemsList.elementAt(index);
+
+      //     return ItemCard(
+      //       item: item,
+      //       onTap: () => context.push(Routes.itemDetail, extra: item),
+      //     );
+      //   },
+      // ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_outlined),
         onPressed: () => context.push(Routes.itemForm),
