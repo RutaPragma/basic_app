@@ -15,14 +15,26 @@ class ItemsProvider extends ChangeNotifier {
   });
 
   List<Item> _items = [];
-  late Item _item;
+  Item? _item;
   bool _loading = false;
+  bool _isNew = false;
   String? _error;
 
   List<Item> get items => _items;
-  Item get item => _item;
+  Item? get item => _item;
   bool get loading => _loading;
+  bool get isNew => _isNew;
   String? get error => _error;
+
+  set item(Item? item) {
+    _item = item;
+    notifyListeners();
+  }
+
+  set isNew(bool isNew) {
+    _isNew = isNew;
+    notifyListeners();
+  }
 
   Future<void> loadItems() async {
     _loading = true;

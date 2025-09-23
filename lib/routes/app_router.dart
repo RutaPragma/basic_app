@@ -13,7 +13,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: Routes.home,
       name: 'item_card',
-      builder: (context, state) => const CardList(),
+      builder: (context, state) => const ItemListPage(),
     ),
     GoRoute(
       path: Routes.itemDetail,
@@ -26,7 +26,7 @@ final GoRouter appRouter = GoRouter(
         return CustomTransitionPage(
           key: state.pageKey,
           transitionDuration: const Duration(milliseconds: 600),
-          child: ItemDetail(item: item),
+          child: ItemDetailPage(item: item),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(1.0, 0.0);
             const end = Offset.zero;
@@ -49,7 +49,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: const ItemForm(),
+          child: const ItemFormPage(),
           transitionDuration: const Duration(milliseconds: 600),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             const begin = Offset(0.0, 1.0);

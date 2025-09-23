@@ -5,14 +5,9 @@ import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({
-    required this.onTap,
-    required this.onEdit,
-    this.item,
-    super.key,
-  });
+  ItemCard({required this.onTap, required this.onEdit, this.item, super.key});
 
-  final Item? item;
+  Item? item;
   final VoidCallback onTap;
   final VoidCallback onEdit;
 
@@ -20,6 +15,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final language = AppLocalizations.of(context);
     final itemsProvider = context.watch<ItemsProvider>();
+    item ??= itemsProvider.item;
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -49,7 +45,7 @@ class ItemCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Icon(
-                  (item?.id ?? 0 % 2) == 0 ? Icons.apple : Icons.android,
+                  ((item?.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
                   color: Theme.of(context).colorScheme.onSurface,
                   size: 60,
                 ),
@@ -59,7 +55,7 @@ class ItemCard extends StatelessWidget {
               left: 140,
               top: 35,
               child: SizedBox(
-                width: 210,
+                width: 200,
                 height: 180,
                 child: Hero(
                   tag:
@@ -87,26 +83,28 @@ class ItemCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ListTile(
-                        title: Text(
-                          item?.title ?? '',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
+                      Material(
+                        color: Colors.transparent,
+                        child: ListTile(
+                          title: Text(
+                            item?.title ?? '',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
-                        ),
-                        subtitle: Text(
-                          item?.description ?? '',
-                          maxLines: 3,
-
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
+                          subtitle: Text(
+                            item?.description ?? '',
+                            maxLines: 3,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
                           ),
                         ),
                       ),
-                      item != null
+                      !itemsProvider.isNew
                           ? IconButton(
                               color: Theme.of(context).colorScheme.primary,
                               onPressed: onEdit,

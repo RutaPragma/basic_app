@@ -3,8 +3,8 @@ import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ItemDetail extends StatelessWidget {
-  const ItemDetail({super.key, required this.item});
+class ItemDetailPage extends StatelessWidget {
+  const ItemDetailPage({super.key, required this.item});
 
   final Item item;
 

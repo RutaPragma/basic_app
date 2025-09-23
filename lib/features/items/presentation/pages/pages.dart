@@ -1,3 +1,3 @@
-export 'card_list.dart';
-export 'item_detail.dart';
-export 'item_form.dart';
+export 'items_list_page.dart';
+export 'item_detail_page.dart';
+export 'item_form_page.dart';
