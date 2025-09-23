@@ -32,4 +32,9 @@ class Item {
       createdAt: createdAt ?? this.createdAt,
     );
   }
+
+  @override
+  String toString() {
+    return 'Item(id: $id, title: $title, category: $category, description: $description,  price: $price)';
+  }
 }

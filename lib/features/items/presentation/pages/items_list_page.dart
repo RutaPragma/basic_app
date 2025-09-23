@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ItemListPage extends StatefulWidget {
-  const ItemListPage({super.key});
+  ItemListPage({super.key});
 
   @override
   State<ItemListPage> createState() => _ItemListPageState();
@@ -16,16 +16,22 @@ class ItemListPage extends StatefulWidget {
 
 class _ItemListPageState extends State<ItemListPage> {
   bool shadowColor = false;
+
   double? scrolledUnderElevation;
 
-  final List<int> _items = List<int>.generate(50, (int index) => index);
-
-  final List<Item> itemsList = [];
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<ItemsProvider>().loadItems();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final language = AppLocalizations.of(context);
     final itemsProvider = context.watch<ItemsProvider>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -60,27 +66,18 @@ class _ItemListPageState extends State<ItemListPage> {
       ),
 
       body: ListView.builder(
-        itemCount: _items.length,
+        itemCount: itemsProvider.items.length,
         padding: const EdgeInsets.only(top: 20),
         itemBuilder: (BuildContext context, int index) {
-          itemsList.add(
-            Item(
-              id: index,
-              title: 'Mi elemento $index',
-              price: double.parse(index.toString()),
-              description:
-                  'Ipsum sed quia minus dolores ut dignissimos. Nihil laboriosam debitis. Ut explicabo dicta consequatur minus quae. Quibusdam voluptates illum deserunt earum odit expedita ipsum id.',
-              category: 'Emmerich, Mills and Hand',
-              createdAt: DateTime.now(),
-            ),
-          );
-          final Item item = itemsList.elementAt(index);
+          final Item item = itemsProvider.items.elementAt(index);
+
           return ItemCard(
+            key: Key('${item.id}'),
             item: item,
             onTap: () => context.push(Routes.itemDetail, extra: item),
             onEdit: () {
-              itemsProvider.item = item;
-              itemsProvider.isNew = false;
+              itemsProvider.setItem(item);
+              itemsProvider.isEdit = true;
               context.push(Routes.itemForm, extra: item);
             },
           );
@@ -91,7 +88,7 @@ class _ItemListPageState extends State<ItemListPage> {
         child: const Icon(Icons.add_outlined),
         onPressed: () {
           itemsProvider.isNew = true;
-          itemsProvider.item = null;
+          itemsProvider.inicialiceItem();
           context.push(Routes.itemForm);
         },
       ),

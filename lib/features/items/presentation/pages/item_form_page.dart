@@ -1,7 +1,9 @@
+import 'package:basic_app/core/localization/app_localizations.dart';
 import 'package:basic_app/features/items/data/datasources/local/app_database.dart';
 import 'package:basic_app/features/items/presentation/state/items_provider.dart';
 import 'package:basic_app/features/items/presentation/widgets/item_card.dart';
 import 'package:basic_app/features/items/presentation/widgets/item_form.dart';
+import 'package:basic_app/features/items/presentation/widgets/loader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +15,10 @@ class ItemFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemsProvider = context.watch<ItemsProvider>();
+    final language = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Form Atras'),
+        title: Text(language.translate('item_form.title')),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new,
@@ -23,15 +26,37 @@ class ItemFormPage extends StatelessWidget {
           ),
           onPressed: () {
             itemsProvider.isNew = false;
+            itemsProvider.isEdit = false;
+            itemsProvider.setItem(null);
             context.pop();
           },
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.save,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+              onPressed: () {
+                itemsProvider.onSaveCall?.call();
+              },
+            ),
+          ),
+        ],
       ),
-      body: Column(
+      body: Stack(
         children: [
-          ItemCard(onTap: () {}, onEdit: () {}),
-          const Divider(),
-          const ItemForm(),
+          Column(
+            children: [
+              ItemCard(onTap: () {}, onEdit: () {}, item: itemsProvider.item),
+              const Divider(),
+              const Expanded(child: ItemForm()),
+            ],
+          ),
+          if (itemsProvider.loading)
+            const LoaderScreen(message: "Guardando item..."),
         ],
       ),
     );

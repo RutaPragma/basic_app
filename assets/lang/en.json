@@ -9,11 +9,11 @@
     "tag:": "tag_card_list"
   },
   "item_form": {
-    "title": "Nuevo ítem",
-    "label_title": "Título",
-    "label_description": "Descripción",
-    "error_title": "El título es requerido",
-    "error_description": "La descripción es requerida",
-    "save_button": "Guardar"
+    "title": "Form items",
+    "label_title": "Title",
+    "label_description": "Description",
+    "error_title": "Title is required",
+    "error_description": "Description is required",
+    "save_button": "Save"
   }
 }

@@ -9,7 +9,7 @@
     "tag:": "tag_card_list"
   },
   "item_form": {
-    "title": "Nuevo ítem",
+    "title": "Formulario de items",
     "label_title": "Título",
     "label_description": "Descripción",
     "error_title": "El título es requerido",

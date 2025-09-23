@@ -13,11 +13,7 @@ class ItemDetailPage extends StatelessWidget {
     final language = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Hero(
-          tag:
-              '${language.translate('item_detail_page.tag_card_list')}${item.id}',
-          child: Text(item.title),
-        ),
+        title: Text(item.title),
 
         leading: IconButton(
           icon: Icon(

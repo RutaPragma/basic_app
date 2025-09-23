@@ -5,7 +5,12 @@ import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
-  ItemCard({required this.onTap, required this.onEdit, this.item, super.key});
+  ItemCard({
+    required this.onTap,
+    required this.onEdit,
+    required this.item,
+    super.key,
+  });
 
   Item? item;
   final VoidCallback onTap;
@@ -13,9 +18,13 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final language = AppLocalizations.of(context);
+    // final language = AppLocalizations.of(context);
     final itemsProvider = context.watch<ItemsProvider>();
-    item ??= itemsProvider.item;
+
+    if (itemsProvider.isEdit || itemsProvider.isNew) {
+      item = itemsProvider.item;
+    }
+
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -57,72 +66,48 @@ class ItemCard extends StatelessWidget {
               child: SizedBox(
                 width: 200,
                 height: 180,
-                child: Hero(
-                  tag:
-                      '${language.translate('card_list_page.tag_card_list')}${item?.id}',
-                  flightShuttleBuilder:
-                      (
-                        flightContext,
-                        animation,
-                        direction,
-                        fromContext,
-                        toContext,
-                      ) {
-                        return DefaultTextStyle(
-                          style: const TextStyle(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Material(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        title: Text(
+                          item?.title ?? '',
+                          style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
-                          child: (direction == HeroFlightDirection.push)
-                              ? toContext.widget
-                              : fromContext.widget,
-                        );
-                      },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Material(
-                        color: Colors.transparent,
-                        child: ListTile(
-                          title: Text(
-                            item?.title ?? '',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                          subtitle: Text(
-                            item?.description ?? '',
-                            maxLines: 3,
-                            overflow: TextOverflow.fade,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
+                        ),
+                        subtitle: Text(
+                          item?.description ?? '',
+                          maxLines: 3,
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ),
-                      !itemsProvider.isNew
-                          ? IconButton(
-                              color: Theme.of(context).colorScheme.primary,
-                              onPressed: onEdit,
-                              icon: CircleAvatar(
-                                backgroundColor: Theme.of(
-                                  context,
-                                ).colorScheme.surface,
-                                child: Icon(
-                                  Icons.edit_note,
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface,
-                                ),
+                    ),
+                    !itemsProvider.isNew ||
+                            (!itemsProvider.isNew && !itemsProvider.isEdit)
+                        ? IconButton(
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: onEdit,
+                            icon: CircleAvatar(
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.surface,
+                              child: Icon(
+                                Icons.edit_note,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
-                            )
-                          : const SizedBox(),
-                    ],
-                  ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ],
                 ),
               ),
             ),

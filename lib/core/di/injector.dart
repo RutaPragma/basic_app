@@ -28,6 +28,7 @@ Future<void> init() async {
   getIt.registerFactory(() => GetItems(getIt()));
   getIt.registerFactory(() => AddItem(getIt()));
   getIt.registerFactory(() => GetItemById(getIt()));
+  getIt.registerFactory(() => UpdateItem(getIt()));
 
   // Providers (state)
   getIt.registerFactory(
@@ -35,6 +36,7 @@ Future<void> init() async {
       getItems: getIt(),
       addItem: getIt(),
       getItemById: getIt(),
+      updateItem: getIt(),
     ),
   );
 }
