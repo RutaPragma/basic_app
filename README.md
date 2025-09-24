@@ -27,53 +27,64 @@ Cada *feature* se organiza de forma modular dentro de `lib/features/`.
 ## Estructura de directorios
 
 ```bash
-lib/
-├─ routes/
-│   ├─ app_router.dart          # Aquí configuras GoRouter
-│   
-├─ core/                        # Recursos compartidos entre features
-│  ├─ error/                    # Manejo de errores y excepciones
-│  ├─ usecases/                 # Base abstracta para casos de uso
-│  ├─ utils/                    # Utilidades generales
-│  └─ database/                 # Configuración de la BD local
-│
-├─ features/
-│  └─ items/                    # Feature principal: Items
-│     ├─ data/
-│     │  ├─ datasources/
-│     │  │  └─ local/
-│     │  │     └─ item_local_datasource.dart   # Fuente de datos local
-│     │  ├─ models/
-│     │  │  └─ item_model.dart
-│     │  ├─ mapper/
-│     │  │  └─ item_model_mapper.dart 
-│     │  └─ repositories/
-│     │     └─ item_repository_impl.dart
-│     │
-│     ├─ domain/
-│     │  ├─ entities/
-│     │  │  └─ item.dart
-│     │  ├─ repositories/
-│     │  │  └─ item_repository.dart
-│     │  └─ usecases/
-│     │     ├─ get_items.dart
-│     │     ├─ add_item.dart
-│     │     └─ get_item_detail.dart
-│     │
-│     ├─ presentation/
-│     │  ├─ state/
-│     │  │  └─ items_provider.dart
-│     │  ├─ pages/
-│     │  │  ├─ items_page.dart
-│     │  │  ├─ item_detail_page.dart
-│     │  │  └─ item_form_page.dart
-│     │  └─ widgets/
-│     │     └─ item_card.dart
-│     │
-│     └─ items_injection.dart   # Inyección de dependencias del feature
-│
-├─ app.dart                     # Configuración de MaterialApp y rutas
-└─ main.dart                    # Punto de entrada principal
+.
+├── app.dart
+├── core
+│   ├── di
+│   │   └── injector.dart
+│   ├── localization
+│   │   ├── app_localizations.dart
+│   │   └── app_localizations_delegate.dart
+│   └── theme
+│       └── app_theme.dart
+├── features
+│   └── items
+│       ├── data
+│       │   ├── datasources
+│       │   │   └── local
+│       │   │       ├── app_database.dart
+│       │   │       ├── app_database.g.dart
+│       │   │       └── item_local_datasource.dart
+│       │   ├── models
+│       │   │   └── item_model.dart
+│       │   └── repositories
+│       │       └── item_repository_impl.dart
+│       ├── domain
+│       │   ├── entities
+│       │   │   └── item.dart
+│       │   ├── mapper
+│       │   │   └── item_mapper.dart
+│       │   ├── repositories
+│       │   │   └── item_repository.dart
+│       │   └── usecases
+│       │       ├── add_item.dart
+│       │       ├── delete_item.dart
+│       │       ├── get_item_by_id.dart
+│       │       ├── get_items.dart
+│       │       ├── update_item.dart
+│       │       └── use_cases.dart
+│       └── presentation
+│           ├── helper
+│           │   └── show_dialog.dart
+│           ├── pages
+│           │   ├── item_detail_page.dart
+│           │   ├── item_form_page.dart
+│           │   ├── items_list_page.dart
+│           │   └── pages.dart
+│           ├── state
+│           │   └── items_provider.dart
+│           └── widgets
+│               ├── confirm_dialog.dart
+│               ├── empty_items.dart
+│               ├── item_card.dart
+│               ├── item_detail_content.dart
+│               ├── item_form.dart
+│               ├── loader_screen.dart
+│               └── widgets.dart
+├── main.dart
+└── routes
+    ├── app_router.dart
+    └── routes.dart
 ```
 
 ---
