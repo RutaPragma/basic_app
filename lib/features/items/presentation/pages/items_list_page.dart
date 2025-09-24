@@ -1,8 +1,7 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
 import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:basic_app/features/items/presentation/state/items_provider.dart';
-import 'package:basic_app/features/items/presentation/widgets/empty_items.dart';
-import 'package:basic_app/features/items/presentation/widgets/item_card.dart';
+import 'package:basic_app/features/items/presentation/widgets/widgets.dart';
 import 'package:basic_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -82,8 +81,6 @@ class _ItemListPageState extends State<ItemListPage> {
             itemCount: itemsProvider.items.length,
             padding: const EdgeInsets.only(top: 20),
             itemBuilder: (BuildContext context, int index) {
-              final item = itemsProvider.items[index];
-
               return Selector<ItemsProvider, Item>(
                 selector: (_, provider) => provider.items[index],
                 builder: (_, item, __) {

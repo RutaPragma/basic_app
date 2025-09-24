@@ -1,9 +1,7 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
 import 'package:basic_app/features/items/data/datasources/local/app_database.dart';
 import 'package:basic_app/features/items/presentation/state/items_provider.dart';
-import 'package:basic_app/features/items/presentation/widgets/item_card.dart';
-import 'package:basic_app/features/items/presentation/widgets/item_form.dart';
-import 'package:basic_app/features/items/presentation/widgets/loader_screen.dart';
+import 'package:basic_app/features/items/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
