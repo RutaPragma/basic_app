@@ -88,6 +88,7 @@ class _ItemListPageState extends State<ItemListPage> {
                   return ItemCard(
                     key: Key('${item.id}'),
                     item: item,
+                    showButtons: true,
                     onTap: () => context.push(Routes.itemDetail, extra: item),
                     onEdit: () async {
                       itemsProvider.setItem(item);

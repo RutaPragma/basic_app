@@ -7,6 +7,7 @@ class ItemCard extends StatelessWidget {
     required this.onEdit,
     required this.onDelete,
     required this.item,
+    this.showButtons = false,
     super.key,
   });
 
@@ -14,6 +15,7 @@ class ItemCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+  final bool showButtons;
 
   @override
   Widget build(BuildContext context) {
@@ -90,37 +92,38 @@ class ItemCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          color: Theme.of(context).colorScheme.primary,
-                          onPressed: onEdit,
-                          icon: CircleAvatar(
-                            backgroundColor: Theme.of(
-                              context,
-                            ).colorScheme.primary,
-                            child: Icon(
-                              Icons.edit_note,
-                              color: Theme.of(context).colorScheme.onPrimary,
+                    if (showButtons)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: onEdit,
+                            icon: CircleAvatar(
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.primary,
+                              child: Icon(
+                                Icons.edit_note,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                             ),
                           ),
-                        ),
-                        IconButton(
-                          color: Theme.of(context).colorScheme.primary,
-                          onPressed: onDelete,
-                          icon: CircleAvatar(
-                            backgroundColor: Theme.of(
-                              context,
-                            ).colorScheme.error,
-                            child: Icon(
-                              Icons.clear,
-                              color: Theme.of(context).colorScheme.onError,
+                          IconButton(
+                            color: Theme.of(context).colorScheme.primary,
+                            onPressed: onDelete,
+                            icon: CircleAvatar(
+                              backgroundColor: Theme.of(
+                                context,
+                              ).colorScheme.error,
+                              child: Icon(
+                                Icons.clear,
+                                color: Theme.of(context).colorScheme.onError,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                   ],
                 ),
               ),
