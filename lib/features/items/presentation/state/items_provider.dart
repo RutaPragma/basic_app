@@ -8,12 +8,14 @@ class ItemsProvider extends ChangeNotifier {
   final AddItem addItem;
   final GetItemById getItemById;
   final UpdateItem updateItem;
+  final DeleteItem deleteItem;
 
   ItemsProvider({
     required this.getItems,
     required this.addItem,
     required this.getItemById,
     required this.updateItem,
+    required this.deleteItem,
   });
 
   List<Item> _items = [];

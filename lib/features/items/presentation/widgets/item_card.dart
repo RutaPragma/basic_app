@@ -5,6 +5,7 @@ class ItemCard extends StatelessWidget {
   const ItemCard({
     required this.onTap,
     required this.onEdit,
+    required this.onDelete,
     required this.item,
     super.key,
   });
@@ -12,6 +13,7 @@ class ItemCard extends StatelessWidget {
   final Item item;
   final VoidCallback onTap;
   final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +90,36 @@ class ItemCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButton(
-                      color: Theme.of(context).colorScheme.primary,
-                      onPressed: onEdit,
-                      icon: CircleAvatar(
-                        backgroundColor: Theme.of(context).colorScheme.surface,
-                        child: Icon(
-                          Icons.edit_note,
-                          color: Theme.of(context).colorScheme.onSurface,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          color: Theme.of(context).colorScheme.primary,
+                          onPressed: onEdit,
+                          icon: CircleAvatar(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primary,
+                            child: Icon(
+                              Icons.edit_note,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                          ),
                         ),
-                      ),
+                        IconButton(
+                          color: Theme.of(context).colorScheme.primary,
+                          onPressed: onDelete,
+                          icon: CircleAvatar(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.error,
+                            child: Icon(
+                              Icons.clear,
+                              color: Theme.of(context).colorScheme.onError,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -20,5 +20,11 @@
     "error_title": "El título es requerido",
     "error_description": "La descripción es requerida",
     "save_button": "Guardar"
+  },
+  "confirm_dialog_delete": {
+    "title": "Eliminar item",
+    "message": "¿Estas seguro de que deseas eliminar: ",
+    "confirm_text": "eliminar",
+    "cancel_text": "Cancelar"
   }
 }

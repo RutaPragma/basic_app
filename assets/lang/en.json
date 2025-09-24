@@ -20,5 +20,11 @@
     "error_title": "Title is required",
     "error_description": "Description is required",
     "save_button": "Save"
+  },
+  "confirm_dialog_delete": {
+    "title": "Delete item",
+    "message": "¿Are you sure you want to delete: ",
+    "confirm_text": "Delete",
+    "cancel_text": "Cancel"
   }
 }

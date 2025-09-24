@@ -1,5 +1,6 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
 import 'package:basic_app/features/items/domain/entities/item.dart';
+import 'package:basic_app/features/items/presentation/helper/show_dialog.dart';
 import 'package:basic_app/features/items/presentation/state/items_provider.dart';
 import 'package:basic_app/features/items/presentation/widgets/widgets.dart';
 import 'package:basic_app/routes/routes.dart';
@@ -94,6 +95,24 @@ class _ItemListPageState extends State<ItemListPage> {
                       await context.push(Routes.itemForm, extra: item);
                       await context.read<ItemsProvider>().loadItems();
                     },
+                    onDelete: () => showConfirmDialog(
+                      context: context,
+                      title: language.translate('confirm_dialog_delete.title'),
+                      message:
+                          '${language.translate('confirm_dialog_delete.message')} ${item.title}?',
+                      confirmText: language.translate(
+                        'confirm_dialog_delete.confirm_text',
+                      ),
+                      cancelText: language.translate(
+                        'confirm_dialog_delete.cancel_text',
+                      ),
+                      onConfirm: () async {
+                        await context.read<ItemsProvider>().deleteItem(
+                          item.id ?? 0,
+                        );
+                        await context.read<ItemsProvider>().loadItems();
+                      },
+                    ),
                   );
                 },
               );
@@ -103,7 +122,7 @@ class _ItemListPageState extends State<ItemListPage> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add_outlined),
+        child: const Icon(Icons.add),
         onPressed: () async {
           itemsProvider.isNew = true;
           itemsProvider.inicialiceItem();

@@ -50,6 +50,7 @@ class ItemFormPage extends StatelessWidget {
               ItemCard(
                 onTap: () {},
                 onEdit: () {},
+                onDelete: () {},
                 item: itemsProvider.item!.copyWith(
                   id: itemsProvider.item?.id,
                   title: itemsProvider.item?.title,
