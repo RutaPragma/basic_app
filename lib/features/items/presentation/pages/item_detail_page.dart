@@ -64,21 +64,25 @@ class ItemDetailPage extends StatelessWidget {
             left: 80,
             right: 80,
             top: 20,
-            child: Container(
-              width: 180,
-              height: 120,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.circular(20),
-                border: BoxBorder.all(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  width: 3,
+            child: Hero(
+              tag: item.id ?? 0,
+              transitionOnUserGestures: true,
+              child: Container(
+                width: 180,
+                height: 120,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(20),
+                  border: BoxBorder.all(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    width: 3,
+                  ),
                 ),
-              ),
-              child: Icon(
-                ((item.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
-                color: Theme.of(context).colorScheme.onSurface,
-                size: 60,
+                child: Icon(
+                  ((item.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
+                  color: Theme.of(context).colorScheme.onSurface,
+                  size: 60,
+                ),
               ),
             ),
           ),
@@ -93,6 +97,7 @@ class ItemDetailPage extends StatelessWidget {
                 child: Text(
                   item.description,
                   overflow: TextOverflow.fade,
+                  textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.onSecondary,

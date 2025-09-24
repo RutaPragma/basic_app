@@ -36,17 +36,21 @@ class ItemCard extends StatelessWidget {
             Positioned(
               left: 20,
               top: 45,
-              child: Container(
-                width: 120,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Icon(
-                  ((item.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
-                  color: Theme.of(context).colorScheme.onSurface,
-                  size: 60,
+              child: Hero(
+                transitionOnUserGestures: true,
+                tag: item.id ?? 0,
+                child: Container(
+                  width: 120,
+                  height: 160,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    ((item.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
+                    color: Theme.of(context).colorScheme.onSurface,
+                    size: 60,
+                  ),
                 ),
               ),
             ),
