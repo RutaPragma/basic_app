@@ -1,6 +1,7 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
 import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:basic_app/features/items/presentation/state/items_provider.dart';
+import 'package:basic_app/features/items/presentation/widgets/empty_items.dart';
 import 'package:basic_app/features/items/presentation/widgets/item_card.dart';
 import 'package:basic_app/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ItemListPage extends StatefulWidget {
-  ItemListPage({super.key});
+  const ItemListPage({super.key});
 
   @override
   State<ItemListPage> createState() => _ItemListPageState();
@@ -71,10 +72,10 @@ class _ItemListPageState extends State<ItemListPage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (itemsProvider.error != null) {
-            return Center(child: Text('Error: ${itemsProvider.error}'));
+            return Center(child: Text('${itemsProvider.error}'));
           }
           if (itemsProvider.items.isEmpty) {
-            return const Center(child: Text('No hay items'));
+            return EmptyItems(language: language);
           }
 
           return ListView.builder(

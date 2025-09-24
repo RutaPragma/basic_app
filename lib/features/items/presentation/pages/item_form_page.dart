@@ -65,7 +65,9 @@ class ItemFormPage extends StatelessWidget {
             ],
           ),
           if (itemsProvider.loading)
-            const LoaderScreen(message: "Guardando item..."),
+            LoaderScreen(
+              message: language.translate('item_form_page.save_item'),
+            ),
         ],
       ),
     );

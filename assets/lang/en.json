@@ -2,11 +2,16 @@
   "app_title": "Basic App",
   "card_list_page": {
     "title": "Card list",
-    "tag:": "tag_card_list"
+    "tag:": "tag_card_list",
+    "image_empty": "assets/img/empty.png",
+    "empty_text": "No items.."
   },
   "item_detail_page": {
     "title": "Item detail",
     "tag:": "tag_card_list"
+  },
+  "item_form_page": {
+    "save_item": "Save item..."
   },
   "item_form": {
     "title": "Form items",
