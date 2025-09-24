@@ -135,15 +135,6 @@ flutter run
 
 - Permite agregar un nuevo elemento al listado.
 - Al guardar, la información se persiste en la base de datos local `sqlite`.
-
----
-
-## Pruebas
-
-Para correr las pruebas unitarias:
-
-```bash
-flutter test
 ```
 
 ---
