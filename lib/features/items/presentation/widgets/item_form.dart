@@ -1,7 +1,6 @@
 import 'package:basic_app/core/localization/app_localizations.dart';
 import 'package:basic_app/features/items/domain/entities/item.dart';
 import 'package:basic_app/features/items/presentation/state/items_provider.dart';
-import 'package:basic_app/features/items/presentation/widgets/loader_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,12 +42,7 @@ class ItemFormState extends State<ItemForm> {
       final Item item = itemsProvider.item!.copyWith();
 
       if (itemsProvider.isNew) {
-        await itemsProvider.addNewItemProvider(
-          item.title,
-          item.price,
-          item.description,
-          item.category,
-        );
+        await itemsProvider.addNewItemProvider(item);
       } else if (itemsProvider.isEdit) {
         await itemsProvider.updateItemProvider(item);
       }

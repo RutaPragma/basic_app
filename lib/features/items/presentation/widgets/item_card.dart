@@ -1,30 +1,20 @@
-import 'package:basic_app/core/localization/app_localizations.dart';
-import 'package:basic_app/features/items/presentation/state/items_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basic_app/features/items/domain/entities/item.dart';
-import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
-  ItemCard({
+  const ItemCard({
     required this.onTap,
     required this.onEdit,
     required this.item,
     super.key,
   });
 
-  Item? item;
+  final Item item;
   final VoidCallback onTap;
   final VoidCallback onEdit;
 
   @override
   Widget build(BuildContext context) {
-    // final language = AppLocalizations.of(context);
-    final itemsProvider = context.watch<ItemsProvider>();
-
-    if (itemsProvider.isEdit || itemsProvider.isNew) {
-      item = itemsProvider.item;
-    }
-
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -54,7 +44,7 @@ class ItemCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Icon(
-                  ((item?.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
+                  ((item.id ?? 0) % 2) == 0 ? Icons.apple : Icons.android,
                   color: Theme.of(context).colorScheme.onSurface,
                   size: 60,
                 ),
@@ -62,10 +52,10 @@ class ItemCard extends StatelessWidget {
             ),
             Positioned(
               left: 140,
-              top: 35,
+              top: 20,
               child: SizedBox(
-                width: 200,
-                height: 180,
+                width: 220,
+                height: 220,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +64,9 @@ class ItemCard extends StatelessWidget {
                       color: Colors.transparent,
                       child: ListTile(
                         title: Text(
-                          item?.title ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.fade,
+                          item.title,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -82,7 +74,7 @@ class ItemCard extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          item?.description ?? '',
+                          item.description,
                           maxLines: 3,
                           overflow: TextOverflow.fade,
                           style: TextStyle(
@@ -91,22 +83,17 @@ class ItemCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    !itemsProvider.isNew ||
-                            (!itemsProvider.isNew && !itemsProvider.isEdit)
-                        ? IconButton(
-                            color: Theme.of(context).colorScheme.primary,
-                            onPressed: onEdit,
-                            icon: CircleAvatar(
-                              backgroundColor: Theme.of(
-                                context,
-                              ).colorScheme.surface,
-                              child: Icon(
-                                Icons.edit_note,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
+                    IconButton(
+                      color: Theme.of(context).colorScheme.primary,
+                      onPressed: onEdit,
+                      icon: CircleAvatar(
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        child: Icon(
+                          Icons.edit_note,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

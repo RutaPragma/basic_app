@@ -57,28 +57,48 @@ class _ItemListPageState extends State<ItemListPage> {
             ),
           ),
         ),
-        actions: [
-          const Padding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 30),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
             child: Icon(Icons.task, color: Colors.white),
           ),
         ],
       ),
 
-      body: ListView.builder(
-        itemCount: itemsProvider.items.length,
-        padding: const EdgeInsets.only(top: 20),
-        itemBuilder: (BuildContext context, int index) {
-          final Item item = itemsProvider.items.elementAt(index);
+      body: Builder(
+        builder: (_) {
+          if (itemsProvider.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (itemsProvider.error != null) {
+            return Center(child: Text('Error: ${itemsProvider.error}'));
+          }
+          if (itemsProvider.items.isEmpty) {
+            return const Center(child: Text('No hay items'));
+          }
 
-          return ItemCard(
-            key: Key('${item.id}'),
-            item: item,
-            onTap: () => context.push(Routes.itemDetail, extra: item),
-            onEdit: () {
-              itemsProvider.setItem(item);
-              itemsProvider.isEdit = true;
-              context.push(Routes.itemForm, extra: item);
+          return ListView.builder(
+            itemCount: itemsProvider.items.length,
+            padding: const EdgeInsets.only(top: 20),
+            itemBuilder: (BuildContext context, int index) {
+              final item = itemsProvider.items[index];
+
+              return Selector<ItemsProvider, Item>(
+                selector: (_, provider) => provider.items[index],
+                builder: (_, item, __) {
+                  return ItemCard(
+                    key: Key('${item.id}'),
+                    item: item,
+                    onTap: () => context.push(Routes.itemDetail, extra: item),
+                    onEdit: () async {
+                      itemsProvider.setItem(item);
+                      itemsProvider.isEdit = true;
+                      await context.push(Routes.itemForm, extra: item);
+                      await context.read<ItemsProvider>().loadItems();
+                    },
+                  );
+                },
+              );
             },
           );
         },
@@ -86,10 +106,11 @@ class _ItemListPageState extends State<ItemListPage> {
 
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add_outlined),
-        onPressed: () {
+        onPressed: () async {
           itemsProvider.isNew = true;
           itemsProvider.inicialiceItem();
-          context.push(Routes.itemForm);
+          await context.push(Routes.itemForm);
+          await context.read<ItemsProvider>().loadItems();
         },
       ),
     );

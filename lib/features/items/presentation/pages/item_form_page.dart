@@ -27,7 +27,6 @@ class ItemFormPage extends StatelessWidget {
           onPressed: () {
             itemsProvider.isNew = false;
             itemsProvider.isEdit = false;
-            itemsProvider.setItem(null);
             context.pop();
           },
         ),
@@ -50,7 +49,17 @@ class ItemFormPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              ItemCard(onTap: () {}, onEdit: () {}, item: itemsProvider.item),
+              ItemCard(
+                onTap: () {},
+                onEdit: () {},
+                item: itemsProvider.item!.copyWith(
+                  id: itemsProvider.item?.id,
+                  title: itemsProvider.item?.title,
+                  description: itemsProvider.item?.description,
+                  category: itemsProvider.item?.category,
+                  createdAt: itemsProvider.item?.createdAt,
+                ),
+              ),
               const Divider(),
               const Expanded(child: ItemForm()),
             ],

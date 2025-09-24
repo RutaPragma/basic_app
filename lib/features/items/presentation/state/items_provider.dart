@@ -55,38 +55,25 @@ class ItemsProvider extends ChangeNotifier {
     try {
       _items = await getItems();
     } catch (e) {
-      print(e.toString());
       _error = e.toString();
     }
     _loading = false;
     notifyListeners();
   }
 
-  Future<void> addNewItemProvider(
-    String title,
-    double price,
-    String description,
-    String category,
-  ) async {
-    final item = Item(
-      id: 0,
-      title: title,
-      price: price,
-      description: description,
-      category: category,
-      createdAt: DateTime.now(),
-    );
-
+  Future<void> addNewItemProvider(Item item) async {
     _loading = true;
     _error = null;
+    notifyListeners();
 
     try {
       await addItem(item);
-      await loadItems();
     } catch (e) {
       _error = e.toString();
-      notifyListeners();
     }
+    isNew = false;
+    _loading = false;
+    notifyListeners();
   }
 
   Future<Item?> findById(int id) => getItemById(id);
@@ -95,14 +82,14 @@ class ItemsProvider extends ChangeNotifier {
     _loading = true;
     _error = null;
     notifyListeners();
-    await Future.delayed(const Duration(milliseconds: 500), () {});
+
     try {
       await updateItem(item);
-      _item = null;
-      await loadItems();
     } catch (e) {
       _error = e.toString();
-      notifyListeners();
     }
+    isEdit = false;
+    _loading = false;
+    notifyListeners();
   }
 }
