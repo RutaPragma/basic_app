@@ -55,6 +55,7 @@ class ItemsProvider extends ChangeNotifier {
     try {
       _items = await getItems();
     } catch (e) {
+      print(e.toString());
       _error = e.toString();
     }
     _loading = false;
@@ -94,11 +95,10 @@ class ItemsProvider extends ChangeNotifier {
     _loading = true;
     _error = null;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2), () {
-      print("Han pasado 2 segundos");
-    });
+    await Future.delayed(const Duration(milliseconds: 500), () {});
     try {
       await updateItem(item);
+      _item = null;
       await loadItems();
     } catch (e) {
       _error = e.toString();

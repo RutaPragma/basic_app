@@ -50,9 +50,7 @@ class ItemFormState extends State<ItemForm> {
           item.category,
         );
       } else if (itemsProvider.isEdit) {
-        print('update1');
         await itemsProvider.updateItemProvider(item);
-        print('update2');
       }
 
       Navigator.of(context).pop();
