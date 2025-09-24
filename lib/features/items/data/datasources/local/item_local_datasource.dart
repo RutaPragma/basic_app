@@ -33,7 +33,9 @@ class ItemLocalDatasourceImpl implements ItemLocalDatasource {
 
   @override
   Future<List<ItemModel>> getAllItems() async {
-    final rows = await db.select(db.items).get();
+    final rows = await (db.select(
+      db.items,
+    )..orderBy([(t) => drift.OrderingTerm.desc(t.id)])).get();
     return rows
         .map(
           (r) => ItemModel(

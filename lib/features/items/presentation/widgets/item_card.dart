@@ -68,16 +68,17 @@ class ItemCard extends StatelessWidget {
                           overflow: TextOverflow.fade,
                           item.title,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                         subtitle: Text(
                           item.description,
-                          maxLines: 3,
+                          maxLines: 4,
                           overflow: TextOverflow.fade,
                           style: TextStyle(
+                            fontSize: 14,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
